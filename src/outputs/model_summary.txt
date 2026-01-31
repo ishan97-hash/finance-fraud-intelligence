@@ -1,0 +1,37 @@
+Baseline Models Summary
+=======================
+
+Top features used:
+ - V257
+ - V246
+ - V244
+ - V242
+ - V201
+ - V200
+ - V45
+ - V189
+ - V86
+ - V87
+ - V258
+ - V188
+ - V44
+ - V228
+ - V170
+ - V52
+ - V171
+ - V199
+ - V51
+ - V230
+ - V40
+ - V79
+ - V39
+ - V38
+ - id_35
+ - id_17
+ - V43
+ - V190
+ - V94
+ - V33
+
+Logistic Regression ROC-AUC: 0.7309
+Random Forest ROC-AUC: 0.7440
