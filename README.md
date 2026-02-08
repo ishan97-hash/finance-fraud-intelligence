@@ -1,50 +1,95 @@
-Finance Fraud Project — README
+🚀 Beyond Detection — Behavioral Fraud Intelligence Platform
 
-Project: Beyond Detection — A Multivariate and Behavioral Dynamics Analysis of Financial Fraud
+Project: A Multivariate and Behavioral Dynamics Analysis of Financial Fraud
 Author: Ishan Bhosekar
 
-This README explains how to run the analysis code used in the project (EDA, preprocessing, baseline models, clustering, temporal analysis, SHAP, and early-warning scoring) and where to find outputs.
+Executive Summary
 
-Table of contents
+Traditional fraud systems answer:
 
-Requirements / Environment
+“Is this transaction fraudulent?”
 
-File & folder structure (expected)
+This project reframes fraud detection as a behavioral risk intelligence problem, answering:
 
-Dataset placement
+Which customers are becoming risky?
 
-Step-by-step run order (recommended)
+How fraud patterns evolve over time?
 
-Script descriptions & commands
+What signals drive fraud decisions?
 
-Where outputs are saved
+How can risk be flagged before fraud occurs?
 
-Troubleshooting & tips
+This platform integrates supervised modeling, behavioral clustering, temporal drift detection, explainable AI, and early-warning risk scoring to build a multi-layer fraud intelligence system rather than a simple classifier.
 
-Contact
+🎯 Key Capabilities
 
-Requirements / Environment
+Fraud prediction using supervised ML
 
-Python 3.10 – 3.11 recommended (works on 3.8+ in most cases).
+Behavioral clustering to detect hidden fraud groups
 
-Minimum RAM: 16 GB recommended (the dataset is large; more memory helps).
+Temporal drift monitoring for evolving fraud patterns
 
-OS: Windows, macOS, or Linux.
+Explainable AI using SHAP
 
-Create a fresh virtual environment and install dependencies:
+Early-warning risk scoring engine
 
+📊 Key Results
+
+Dataset: 590,540 transactions, 360 engineered features
+
+Fraud rate: ~3.5% (highly imbalanced real-world scenario)
+
+Random Forest ROC-AUC: 0.744
+
+Identified fraud-dominant behavioral cluster with 95% fraud density
+
+Detected feature drift in high-risk signals (V257, V246, id_17, id_35)
+
+Built tiered early-warning risk thresholds (85 / 95 / 99 percentiles)
+
+🧠 System Architecture
+
+The system pipeline includes:
+
+Data preprocessing and feature engineering
+
+Exploratory analysis and imbalance assessment
+
+Supervised modeling with interpretability
+
+Behavioral clustering and anomaly discovery
+
+Temporal drift detection
+
+Early-warning risk scoring
+
+This layered approach enables both reactive detection and proactive risk monitoring.
+
+🛠 Tech Stack
+
+Python • Pandas • Scikit-learn • SHAP
+SMOTE • PCA • KMeans • Matplotlib • Seaborn
+
+⚙ Requirements / Environment
+
+Python 3.10 – 3.11 recommended
+
+Minimum RAM: 16 GB (large dataset)
+
+OS: Windows / macOS / Linux
+
+Environment Setup
 python -m venv .venv
+
 # Windows
 .venv\Scripts\activate
-# macOS / Linux
+
+# macOS/Linux
 source .venv/bin/activate
 
-# Install required libraries
 pip install -r requirements.txt
 
-
-Sample requirements.txt (save in project root):
-
+Sample requirements.txt
 pandas
 numpy
 scikit-learn
@@ -61,197 +106,171 @@ xgboost
 lightgbm
 
 
-Note: shap can be slow to install (compiles some components). If pip install fails, update pip and try again:
-python -m pip install --upgrade pip then re-run install.
+If SHAP installation fails:
 
-Dataset placement
+python -m pip install --upgrade pip
 
-Place the original IEEE-CIS CSV files in data/raw/. Typical files:
+📁 Dataset Placement
 
-data/raw/train_transaction.csv
+Place raw IEEE-CIS dataset files in:
 
-data/raw/train_identity.csv
+data/raw/
 
-(optionally) PaySim dataset if used for simulation
 
-Important: The scripts expect train_clean.csv under data/processed/ once preprocessing completes. The preprocessing script will create it.
+Required:
 
-Recommended run order (high-level)
+train_transaction.csv
+train_identity.csv
 
-clean_preprocess.py — merge, clean, encode, scale → produces data/processed/train_clean.csv
 
-eda_analysis.py — basic EDA plots (class distribution, correlation heatmap)
+Optional:
 
-view_large_csv.py — preview large cleaned CSV, optionally save a small sample for Excel
+PaySim dataset
 
-baseline_models.py — build baseline models (LogReg + RandomForest), save RF model and feature list
 
-clustering_analysis.py — PCA + KMeans clustering, save cluster plot and stats
+After preprocessing:
 
-temporal_analysis.py — compute feature drift plots over time blocks
+data/processed/train_clean.csv
 
-shap_analysis.py — compute and save SHAP summary plot (requires RF model + feature_list.json)
+▶ Recommended Execution Order
 
-early_warning.py — compute distance-based risk scores, thresholds, save CSV + histogram
+Run scripts sequentially:
 
-Run them sequentially. Later scripts depend on artifacts from earlier ones (e.g., train_clean.csv, random_forest.pkl, feature_list.json).
+1️⃣ clean_preprocess.py
+→ Merge, clean, encode, scale data
 
-Script descriptions and commands
+2️⃣ eda_analysis.py
+→ Class distribution + correlation heatmap
 
-All commands assume you run them from the src/ folder or from project root with python src/<script>.py.
+3️⃣ view_large_csv.py (optional)
+→ Preview large dataset
 
-1. Preprocessing
+4️⃣ baseline_models.py
+→ Logistic Regression + Random Forest
 
-Script: src/clean_preprocess.py
-Purpose: Merge raw tables, impute missing values, encode categoricals, scale numeric columns, save data/processed/train_clean.csv.
-Run:
+5️⃣ clustering_analysis.py
+→ Behavioral clustering
 
+6️⃣ temporal_analysis.py
+→ Fraud drift monitoring
+
+7️⃣ shap_analysis.py
+→ Model explainability
+
+8️⃣ early_warning.py
+→ Risk scoring engine
+
+📜 Script Commands
+
+Run from project root:
+
+python src/<script>.py
+
+Preprocessing
 python src/clean_preprocess.py
 
 
-Output: data/processed/train_clean.csv and logs about shape and memory usage.
+Output:
 
-2. EDA
+data/processed/train_clean.csv
 
-Script: src/eda_analysis.py
-Purpose: Produce class distribution chart and correlation heatmap for top features.
-Run:
-
+EDA
 python src/eda_analysis.py
 
 
-Output: outputs/figures/class_distribution.png, outputs/figures/correlation_heatmap.png.
+Outputs:
 
-3. View large CSV (optional)
+outputs/figures/class_distribution.png
+outputs/figures/correlation_heatmap.png
 
-Script: src/view_large_csv.py
-Purpose: Preview first N rows and optionally save a smaller CSV for Excel. Useful if train_clean.csv is too large for Excel/VSCode.
-Run:
-
-python src/view_large_csv.py
-
-
-Interactive: The script may ask if you want to save a sample (y/n). It saves data/processed/train_clean_sample.csv.
-
-4. Baseline models
-
-Script: src/baseline_models.py
-Purpose: Select top correlated features, split and apply SMOTE, train Logistic Regression & Random Forest, save model and feature list.
-Run:
-
+Baseline Modeling
 python src/baseline_models.py
 
 
 Outputs:
 
 models/random_forest.pkl
-
-models/feature_list.json (list of top 30 features)
-
-outputs/figures/logreg_confusion.png
-
-outputs/figures/logreg_roc.png
-
-outputs/figures/rf_confusion.png
-
-outputs/figures/rf_roc.png
-
+models/feature_list.json
 outputs/model_summary.txt
+confusion matrices + ROC plots
 
-Notes: If the script errors trying to save into a missing directory, ensure outputs/ and models/ directories exist or let the script create them (it should).
-
-5. Clustering analysis
-
-Script: src/clustering_analysis.py
-Purpose: PCA, sample large rows for clustering, run KMeans, compute silhouette score, save cluster plot and cluster stats CSV.
-Run:
-
+Clustering
 python src/clustering_analysis.py
 
 
 Outputs:
 
-outputs/figures/pca_kmeans_clusters.png
+cluster visualization
+cluster_stats.csv
 
-outputs/cluster_stats.csv
-
-Notes: The script samples (e.g., 80k rows) to speed up clustering; it saves cluster stats for interpretation.
-
-6. Temporal drift analysis
-
-Script: src/temporal_analysis.py
-Purpose: Divide TransactionDT into time blocks; compute mean/CI for selected features for fraud vs non-fraud; save per-feature plots.
-Run:
-
+Temporal Drift
 python src/temporal_analysis.py
 
 
-Outputs: outputs/figures/drift_<feature>.png for each analyzed feature (e.g., id_17, id_35, V45, etc.)
+Outputs:
 
-7. SHAP interpretability
+drift_<feature>.png
 
-Script: src/shap_analysis.py
-Purpose: Load models/random_forest.pkl and models/feature_list.json, sample rows, compute SHAP TreeExplainer, and save a SHAP summary plot for the fraud class.
-Run:
-
+SHAP Explainability
 python src/shap_analysis.py
 
 
-Output: outputs/figures/shap_summary.png
+Output:
 
-Notes & Troubleshooting:
+shap_summary.png
 
-SHAP expects the same feature order and shape the model was trained on. The script loads feature_list.json to ensure exact ordering.
-
-SHAP computation may be slow and memory heavy for large samples. The script samples 3k rows by default.
-
-If you see "shape mismatch" errors, make sure models/feature_list.json was produced by baseline_models.py and matches the features saved to the model.
-
-8. Early warning scoring
-
-Script: src/early_warning.py
-Purpose: Use PCA + KMeans results (fraud cluster) to compute distance-based risk scores, define percentile thresholds (85%, 95%, 99%), assign risk levels, save histogram and CSV.
-Run:
-
+Early Warning Risk Scoring
 python src/early_warning.py
 
 
 Outputs:
 
-outputs/figures/risk_score_dist.png
+risk_score_dist.png
+early_warning_scores.csv
 
-outputs/early_warning_scores.csv
+📊 Outputs Directory
+outputs/figures/ → Visualizations
+models/ → Saved models
+cluster_stats.csv → Cluster analysis
+early_warning_scores.csv → Risk tiers
 
-Notes: The script samples N rows (100k) for scoring and saves early_warning_scores.csv with columns TransactionID, isFraud_binary, risk_score, risk_level, and cluster.
+🧪 Reproducibility
 
-Where to find outputs
+Fixed random seeds ensure consistent runs
 
-All plots: outputs/figures/ (png images)
+All intermediate artifacts saved
 
-Cluster stats: outputs/cluster_stats.csv
+Modular pipeline supports extension
 
-Model(s): models/random_forest.pkl, models/feature_list.json
+⚠ Troubleshooting
 
-Early warning scores: outputs/early_warning_scores.csv
+Common fixes:
 
-Small CSV sample (if saved): data/processed/train_clean_sample.csv
+Missing processed data
+→ Run preprocessing first
 
-Troubleshooting & tips
+Directory errors
+→ Ensure outputs/ exists
 
-FileNotFoundError on train_clean.csv: Run clean_preprocess.py first or check that data/processed/train_clean.csv exists and path string matches script expectation.
+SHAP shape mismatch
+→ Regenerate model + feature list
 
-Permission / path issues on Windows: Use absolute paths in scripts or run PowerShell as Administrator. Prefer python src/<script> from repository root.
+Memory issues
+→ Reduce sampling sizes
 
-Matplotlib savefig errors (no such directory): Create required directories (outputs/figures/) or run ensure_dirs() if script provides it.
+🔮 Future Enhancements
 
-SHAP errors (additivity/shape): Ensure models/feature_list.json exists and the model was trained on the same ordered feature list. Re-run baseline_models.py to regenerate model + feature list.
+Causal inference modeling
 
-Memory errors: Lower sampling sizes in clustering/SHAP/early_warning scripts or run on a machine with more RAM.
+Real-time deployment API
 
-Long runtimes: RF training (n_estimators=200) and SHAP TreeExplainer can take several minutes to hours. Reduce n_estimators or sample fewer rows for SHAP if needed.
+XGBoost/LSTM forecasting
 
-Reproducibility notes
+Automated fraud strategy agent
 
-Scripts save outputs and models to the project so you can reproduce later analyses.
+📬 Contact
 
-Keep the same random seeds (many scripts use random_state=42) to get reproducible sampling, splits, and clustering seeds.
+Author: Ishan Bhosekar
+GitHub / LinkedIn: (add your links)
+
+⭐ If this project helped you understand fraud intelligence systems, feel free to star the repo!
