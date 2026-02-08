@@ -1,4 +1,4 @@
-#🚀 Beyond Detection — Behavioral Fraud Intelligence Platform
+# 🚀 Beyond Detection — Behavioral Fraud Intelligence Platform
 
 Project: A Multivariate and Behavioral Dynamics Analysis of Financial Fraud
 Author: Ishan Bhosekar
@@ -21,7 +21,7 @@ How can risk be flagged before fraud occurs?
 
 This platform integrates supervised modeling, behavioral clustering, temporal drift detection, explainable AI, and early-warning risk scoring to build a multi-layer fraud intelligence system rather than a simple classifier.
 
-#🎯 Key Capabilities
+# 🎯 Key Capabilities
 
 Fraud prediction using supervised ML
 
@@ -33,7 +33,7 @@ Explainable AI using SHAP
 
 Early-warning risk scoring engine
 
-#📊 Key Results
+# 📊 Key Results
 
 Dataset: 590,540 transactions, 360 engineered features
 
@@ -47,7 +47,7 @@ Detected feature drift in high-risk signals (V257, V246, id_17, id_35)
 
 Built tiered early-warning risk thresholds (85 / 95 / 99 percentiles)
 
-#🧠 System Architecture
+# 🧠 System Architecture
 
 The system pipeline includes:
 
@@ -65,7 +65,7 @@ Early-warning risk scoring
 
 This layered approach enables both reactive detection and proactive risk monitoring.
 
-#🛠 Tech Stack
+# 🛠 Tech Stack
 
 Python • Pandas • Scikit-learn • SHAP
 SMOTE • PCA • KMeans • Matplotlib • Seaborn
@@ -81,10 +81,10 @@ OS: Windows / macOS / Linux
 Environment Setup
 python -m venv .venv
 
-# Windows
+ Windows
 .venv\Scripts\activate
 
-# macOS/Linux
+macOS/Linux
 source .venv/bin/activate
 
 pip install -r requirements.txt
@@ -110,7 +110,7 @@ If SHAP installation fails:
 
 python -m pip install --upgrade pip
 
-#📁 Dataset Placement
+# 📁 Dataset Placement
 
 Place raw IEEE-CIS dataset files in:
 
@@ -132,7 +132,7 @@ After preprocessing:
 
 data/processed/train_clean.csv
 
-#▶ Recommended Execution Order
+# ▶ Recommended Execution Order
 
 Run scripts sequentially:
 
@@ -160,7 +160,7 @@ Run scripts sequentially:
 8️⃣ early_warning.py
 → Risk scoring engine
 
-#📜 Script Commands
+# 📜 Script Commands
 
 Run from project root:
 
@@ -228,13 +228,13 @@ Outputs:
 risk_score_dist.png
 early_warning_scores.csv
 
-#📊 Outputs Directory
+# 📊 Outputs Directory
 outputs/figures/ → Visualizations
 models/ → Saved models
 cluster_stats.csv → Cluster analysis
 early_warning_scores.csv → Risk tiers
 
-#🧪 Reproducibility
+# 🧪 Reproducibility
 
 Fixed random seeds ensure consistent runs
 
@@ -258,7 +258,7 @@ SHAP shape mismatch
 Memory issues
 → Reduce sampling sizes
 
-#🔮 Future Enhancements
+# 🔮 Future Enhancements
 
 Causal inference modeling
 
@@ -268,7 +268,7 @@ XGBoost/LSTM forecasting
 
 Automated fraud strategy agent
 
-#📬 Contact
+# 📬 Contact
 
 Author: Ishan Bhosekar
 GitHub / LinkedIn: (add your links)
